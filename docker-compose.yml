@@ -8,7 +8,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD:${MYSQL_PASSWORD}
     volumes:
-      - ${MYSQL_LOG}:/log
+      - ${MYSQL_LOG}:/logs
       - ${MYSQL_CNF_PATH}:/etc/mysql/my.cnf
     ports:
       - ${MYSQL_PORTS}:3306

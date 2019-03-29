@@ -6,7 +6,7 @@ services:
     networks:
       - mysql
     environment:
-      - MYSQL_ROOT_PASSWORD:${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - ${MYSQL_LOG}:/logs
       - ${MYSQL_CNF_PATH}:/etc/mysql/my.cnf

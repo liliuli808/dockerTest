@@ -26,6 +26,7 @@ services:
       args:
         - INSTALL_SWOOLE=${INSTALL_SWOOLE}
         - INSTALL_PHPREDIS=${INSTALL_PHPREDIS}
+        - INSTALL_IMAGEMAGICK=${INSTALL_IMAGEMAGICK}
     volumes:
       - ${APPLICATION}:/www
       - ${PHP72_INI_PATH}:/usr/local/etc/php/php.ini
@@ -43,6 +44,7 @@ services:
       args:
         - INSTALL_SWOOLE=${INSTALL_SWOOLE}
         - INSTALL_PHPREDIS=${INSTALL_PHPREDIS}
+        - INSTALL_IMAGEMAGICK=${INSTALL_IMAGEMAGICK}
     volumes:
         - ${APPLICATION}:/www
         - ${PHP56_INI_PATH}:/usr/local/etc/php/php.ini
@@ -60,7 +62,7 @@ services:
     volumes:
       - ${APPLICATION}:/www
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d
-      - ${NGINX_LOGS_PATH}:/wwwlogs
+      - ${NGINX_LOGS_PATH}:/var/log/nginx
       - ${NGINX_CONF_PATH}:/etc/nginx/nginx.conf
       - ${NGINX_SSL_PATH}:/etc/nginx/ssl
     ports:

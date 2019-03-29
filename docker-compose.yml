@@ -15,7 +15,7 @@ services:
   redis:
     image: redis:${REDIS_VERSION}
     volumes:
-      - ${REDIS_DATA}:${REDIS_DATA}:/data
+      - ${REDIS_DATA}:/data
     networks:
       - redis
     ports:

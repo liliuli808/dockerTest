@@ -58,16 +58,16 @@ services:
   nginx:
     image: nginx:${NGINX_TAG}
     volumes:
-    - ${APPLICATION}:/www
-    - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d
-    - ${NGINX_LOGS_PATH}:/wwwlogs
-    - ${NGINX_CONF_PATH}:/etc/nginx/nginx.conf
-    - ${NGINX_SSL_PATH}:/etc/nginx/ssl
+      - ${APPLICATION}:/www
+      - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d
+      - ${NGINX_LOGS_PATH}:/wwwlogs
+      - ${NGINX_CONF_PATH}:/etc/nginx/nginx.conf
+      - ${NGINX_SSL_PATH}:/etc/nginx/ssl
     ports:
-    - ${NGINX_HTTP_PORT}:80
-    - ${NGINX_HTTPS_PORT}:443
+      - ${NGINX_HTTP_PORT}:80
+      - ${NGINX_HTTPS_PORT}:443
     networks:
-    - nginxs
+      - nginx
 networks:
   mysql:
     external: false

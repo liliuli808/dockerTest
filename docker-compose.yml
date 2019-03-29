@@ -1,0 +1,76 @@
+version: "3"
+services:
+  #mysql
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    networks:
+      - mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD:${MYSQL_PASSWORD}
+    volumes:
+      - ${MYSQL_LOG}:./log
+      - ${MYSQL_CNF_PATH}:/etc/mysql/my.cnf
+    ports:
+      - ${MYSQL_PORTS}:3306
+  redis:
+    image: redis:${REDIS_VERSION}
+    volumes:
+      - ${REDIS_DATA}:./data
+    networks:
+      - redis
+    ports:
+      - ${REDIS_PORT}:6379
+  php-fpm7.2:
+    build:
+      context: ./php7.2
+      args:
+        - INSTALL_SWOOLE=${INSTALL_SWOOLE}
+        - INSTALL_PHPREDIS=${INSTALL_PHPREDIS}
+    volumes:
+      - ${APPLICATION}:/www
+      - ${PHP72_INI_PATH}:/usr/local/etc/php/php.ini
+      - ${PHP72_LOGS_PATH}:/phplogs
+    networks:
+      - nginx
+    links:
+      - redis
+      - mysql
+    ports:
+        - ${PHP72_FPM_PORT}:9000
+  php-fpm5.6:
+    build:
+      context: ./php5.6
+      args:
+        - INSTALL_SWOOLE=${INSTALL_SWOOLE}
+        - INSTALL_PHPREDIS=${INSTALL_PHPREDIS}
+    volumes:
+        - ${APPLICATION}:/www
+        - ${PHP56_INI_PATH}:/usr/local/etc/php/php.ini
+        - ${PHP56_LOGS_PATH}:/phplogs
+    networks:
+      - nginx
+    links:
+        - redis
+        - mysql
+    ports:
+      - ${PHP56_FPM_PORT}:9000
+  nginx:
+    image: nginx:${NGINX_TAG}
+    networks:
+    - nginx
+    volumes:
+    - ${APPLICATION}:/www
+    - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d
+    - ${NGINX_LOGS_PATH}:/wwwlogs
+    - ${NGINX_CONF_PATH}:/etc/nginx/nginx.conf
+    - ${NGINX_SSL_PATH}:/etc/nginx/ssl
+    ports:
+    - "${NGINX_HTTP_PORT}:80"
+    - "${NGINX_HTTPS_PORT}:443"
+networks:
+  mysql:
+    external: false
+  redis:
+    external: false
+  nginx:
+    external: false

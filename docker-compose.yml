@@ -72,7 +72,7 @@ services:
       - nginx
   ###  RabbitMQ ##########
   rabbitmq:
-    image: rabbitmq:management:latest
+    image: rabbitmq:management
     ports:
       - 5672:5672
       - 15672:15672

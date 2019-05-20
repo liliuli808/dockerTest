@@ -56,7 +56,7 @@ services:
         - mysql
     ports:
       - ${PHP56_FPM_PORT}:9000
-    ### NGINX Server #########################################
+  ### NGINX Server #########################################
   nginx:
     image: nginx:${NGINX_TAG}
     volumes:
@@ -70,6 +70,17 @@ services:
       - ${NGINX_HTTPS_PORT}:443
     networks:
       - nginx
+  ###  RabbitMQ ##########
+  rabbitmq:
+    image: rabbitmq:management:latest
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - nginx
+    links:
+      - redis
+      - mysql
 networks:
   mysql:
     external: false

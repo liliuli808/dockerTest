@@ -16,6 +16,7 @@ services:
     image: redis:${REDIS_VERSION}
     volumes:
       - ${REDIS_DATA}:/data
+      - ${REDIS_CONF}:/usr/local/etc/redis/redis.conf
     networks:
       - redis
     ports:
